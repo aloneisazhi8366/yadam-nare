@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>یادم نره 🔔</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff3f86">
+
+<style>
+
+:root{
+  --pink:#ff3f86;
+  --pink-dark:#e92b70;
+  --light:#fff5f8;
+  --card:#ffffff;
+  --text:#333333;
+  --soft:#fff0f6;
+  --border:#ffd0e2;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+body.dark{
+  --light:#171217;
+  --card:#241c23;
+  --text:#f5edf2;
+  --soft:#33252f;
+  --border:#593545;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+*{
+  box-sizing:border-box;
+  font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--light);
+  color:var(--text);
+  transition:.3s;
+}
+
+header{
+  background:linear-gradient(135deg,var(--pink),var(--pink-dark));
+  color:white;
+  text-align:center;
+  padding:30px 18px 35px;
+  border-radius:0 0 35px 35px;
+  box-shadow:0 8px 25px rgba(255,47,125,.25);
+}
+
+header h1{
+  margin:0 0 8px;
+  font-size:30px;
+}
+
+header p{
+  margin:0;
+  opacity:.92;
+}
+
+.container{
+  width:min(92%,650px);
+  margin:25px auto;
+}
+
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+
+.card h2{
+  color:var(--pink);
+  margin-top:0;
+  font-size:20px;
+}
+
+input,
+select{
+  width:100%;
+  padding:15px;
+  margin-bottom:12px;
+  border:2px solid var(--border);
+  border-radius:14px;
+  background:var(--card);
+  color:var(--text);
+  font-size:15px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:var(--pink);
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  cursor:pointer;
+  font-size:15px;
+  transition:.2s;
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+.add-btn{
+  width:100%;
+  background:var(--pink);
+  color:white;
+  font-weight:bold;
+  font-size:17px;
+}
+
+.top-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.top-buttons button{
+  flex:1;
+  background:var(--soft);
+  color:var(--pink);
+}
+
+.search-box{
+  margin-bottom:12px;
+}
+
+.filters{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.filter-btn{
+  background:var(--soft);
+  color:var(--pink);
+  padding:10px 12px;
+  font-size:13px;
+}
+
+.filter-btn.active{
+  background:var(--pink);
+  color:white;
+}
+
+.stats{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  text-align:center;
+}
+
+.stat{
+  flex:1;
+  background:var(--soft);
+  padding:12px 5px;
+  border-radius:15px;
+  color:var(--pink);
+}
+
+.stat strong{
+  display:block;
+  font-size:20px;
+}
+
+.reminder{
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:13px;
+  box-shadow:var(--shadow);
+  border-right:5px solid var(--pink);
+}
+
+.reminder.done{
+  opacity:.6;
+  border-right-color:#44b978;
+}
+
+.reminder.done .reminder-text{
+  text-decoration:line-through;
+}
+
+.reminder-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.reminder-text{
+  font-size:17px;
+  font-weight:bold;
+  word-break:break-word;
+}
+
+.category{
+  display:inline-block;
+  margin-top:10px;
+  background:var(--soft);
+  color:var(--pink);
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+.reminder-time{
+  margin-top:10px;
+  color:#888;
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:15px;
+}
+
+.actions button{
+  flex:1;
+  padding:11px 5px;
+  font-size:13px;
+}
+
+.done-btn{
+  background:#e5fff0;
+  color:#209957;
+}
+
+.edit-btn{
+  background:#fff4d8;
+  color:#c88a00;
+}
+
+.delete-btn{
+  background:#fff0f2;
+  color:#df4057;
+}
+
+.empty{
+  text-align:center;
+  padding:30px 10px;
+  color:#999;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#999;
+  font-size:13px;
+}
+
+footer strong{
+  color:var(--pink);
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+  <h1>🔔 یادم نره</h1>
+
+  <p>هیچ چیز مهمی رو فراموش نکن ✨</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- آمار -->
+
+<div class="card">
+
+<div class="stats">
+
+  <div class="stat">
+
+    <strong id="totalCount">0</strong>
+
+    همه
+
+  </div>
+
+
+  <div class="stat">
+
+    <strong id="pendingCount">0</strong>
+
+    باقی‌مانده
+
+  </div>
+
+
+  <div class="stat">
+
+    <strong id="doneCount">0</strong>
+
+    انجام‌شده
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ساخت یادآوری -->
+
+<div class="card">
+
+<h2 id="formTitle">📝 یادآوری جدید</h2>
+
+
+<input
+  type="text"
+  id="reminderText"
+  placeholder="مثلاً: تکلیفمو انجام بدم ✍️"
+>
+
+
+<input
+  type="datetime-local"
+  id="reminderTime"
+>
+
+
+<select id="reminderCategory">
+
+  <option value="📚 درس">📚 درس</option>
+
+  <option value="💼 کار">💼 کار</option>
+
+  <option value="🩷 شخصی">🩷 شخصی</option>
+
+  <option value="❗ مهم">❗ مهم</option>
+
+  <option value="🛒 خرید">🛒 خرید</option>
+
+  <option value="🎯 سایر">🎯 سایر</option>
+
+</select>
+
+
+<button class="add-btn" onclick="saveReminder()">
+
+➕ اضافه کردن یادآوری
+
+</button>
+
+
+<div class="top-buttons">
+
+<button onclick="toggleDarkMode()">🌙 دارک مود</button>
+
+<button onclick="sortReminders()">⏰ مرتب‌سازی</button>
+
+</div>
+
+</div>
+
+
+<!-- لیست -->
+
+<div class="card">
+
+<h2>📋 یادآوری‌های من</h2>
+
+
+<input
+  class="search-box"
+  type="text"
+  id="searchInput"
+  placeholder="🔎 جستجو بین یادآوری‌ها..."
+  oninput="renderReminders()"
+>
+
+
+<div class="filters">
+
+<button class="filter-btn active" onclick="setFilter('all',this)">
+همه
+</button>
+
+
+<button class="filter-btn" onclick="setFilter('pending',this)">
+انجام‌نشده
+</button>
+
+
+<button class="filter-btn" onclick="setFilter('done',this)">
+انجام‌شده
+</button>
+
+</div>
+
+
+<div id="reminderList"></div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+ساخته شده توسط <strong>alone_is</strong>
+
+<br>
+
+ 2026
+
+</footer>
+
+
+<script>
+
+
+let reminders =
+  JSON.parse(localStorage.getItem("yadamNareReminders")) || [];
+
+
+let currentFilter = "all";
+
+let editingIndex = null;
+
+
+/* ذخیره */
+
+function saveData(){
+
+  localStorage.setItem(
+    "yadamNareReminders",
+    JSON.stringify(reminders)
+  );
+
+}
+
+
+/* ساخت یا ویرایش */
+
+function saveReminder(){
+
+  const text =
+    document.getElementById("reminderText").value.trim();
+
+
+  const time =
+    document.getElementById("reminderTime").value;
+
+
+  const category =
+    document.getElementById("reminderCategory").value;
+
+
+  if(!text){
+
+    alert("اول بنویس چی رو می‌خوای یادت بمونه 🥺");
+
+    return;
+
+  }
+
+
+  if(!time){
+
+    alert("زمان یادآوری رو انتخاب کن ⏰");
+
+    return;
+
+  }
+
+
+  if(editingIndex !== null){
+
+    reminders[editingIndex].text = text;
+
+    reminders[editingIndex].time = time;
+
+    reminders[editingIndex].category = category;
+
+
+    editingIndex = null;
+
+
+    document.getElementById("formTitle").innerHTML =
+      "📝 یادآوری جدید";
+
+
+    alert("✏️ یادآوری ویرایش شد!");
+
+  }
+
+  else{
+
+
+    reminders.push({
+
+      text:text,
+
+      time:time,
+
+      category:category,
+
+      done:false,
+
+      createdAt:Date.now()
+
+    });
+
+
+    alert("🎉 یادآوری اضافه شد!");
+
+  }
+
+
+  saveData();
+
+  clearForm();
+
+  renderReminders();
+
+}
+
+
+/* پاک کردن فرم */
+
+function clearForm(){
+
+  document.getElementById("reminderText").value = "";
+
+  document.getElementById("reminderTime").value = "";
+
+
+  document.getElementById("reminderCategory").selectedIndex = 0;
+
+}
+
+
+/* نمایش */
+
+function renderReminders(){
+
+  const list =
+    document.getElementById("reminderList");
+
+
+  const search =
+    document.getElementById("searchInput").value
+      .toLowerCase();
+
+
+  list.innerHTML = "";
+
+
+  let filtered = reminders
+
+    .map((reminder,index) => ({reminder,index}))
+
+    .filter(item => {
+
+
+      const reminder = item.reminder;
+
+
+      const matchesSearch =
+
+        reminder.text.toLowerCase().includes(search) ||
+
+        reminder.category.toLowerCase().includes(search);
+
+
+      if(currentFilter === "done"){
+
+        return reminder.done && matchesSearch;
+
+      }
+
+
+      if(currentFilter === "pending"){
+
+        return !reminder.done && matchesSearch;
+
+      }
+
+
+      return matchesSearch;
+
+    });
+
+
+  if(filtered.length === 0){
+
+    list.innerHTML =
+
+      `<div class="empty">
+
+         چیزی پیدا نشد!
+
+      </div>`;
+
+  }
+
+
+  filtered.forEach(item => {
+
+
+    const reminder = item.reminder;
+
+    const index = item.index;
+
+
+    const date =
+      new Date(reminder.time);
+
+
+    const formattedDate =
+      date.toLocaleString("fa-IR");
+
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+
+      reminder.done
+
+      ? "reminder done"
+
+      : "reminder";
+
+
+    div.innerHTML = `
+
+
+      <div class="reminder-top">
+
+        <div class="reminder-text">
+
+          ${escapeHTML(reminder.text)}
+
+        </div>
+
+      </div>
+
+
+      <div class="category">
+
+        ${reminder.category}
+
+      </div>
+
+
+      <div class="reminder-time">
+
+        🕒 ${formattedDate}
+
+      </div>
+
+
+      <div class="actions">
+
+
+        <button
+
+          class="done-btn"
+
+          onclick="toggleDone(${index})"
+
+        >
+
+          ${reminder.done ? "↩ برگردان" : "✅ انجام شد"}
+
+        </button>
+
+
+        <button
+
+          class="edit-btn"
+
+          onclick="editReminder(${index})"
+
+        >
+
+          ✏️ ویرایش
+
+        </button>
+
+
+        <button
+
+          class="delete-btn"
+
+          onclick="deleteReminder(${index})"
+
+        >
+
+          🗑 حذف
+
+        </button>
+
+
+      </div>
+
+    `;
+
+
+    list.appendChild(div);
+
+  });
+
+
+  updateStats();
+
+}
+
+
+/* انجام‌شده */
+
+function toggleDone(index){
+
+  reminders[index].done =
+    !reminders[index].done;
+
+
+  saveData();
+
+  renderReminders();
+
+}
+
+
+/* حذف */
+
+function deleteReminder(index){
+
+  if(confirm("مطمئنی می‌خوای این یادآوری رو حذف کنی؟ 🥺")){
+
+
+    reminders.splice(index,1);
+
+
+    saveData();
+
+    renderReminders();
+
+  }
+
+}
+
+
+/* ویرایش */
+
+function editReminder(index){
+
+  const reminder = reminders[index];
+
+
+  document.getElementById("reminderText").value =
+    reminder.text;
+
+
+  document.getElementById("reminderTime").value =
+    reminder.time;
+
+
+  document.getElementById("reminderCategory").value =
+    reminder.category;
+
+
+  editingIndex = index;
+
+
+  document.getElementById("formTitle").innerHTML =
+    "✏️ ویرایش یادآوری";
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
+/* فیلتر */
+
+function setFilter(filter,button){
+
+  currentFilter = filter;
+
+
+  document
+
+    .querySelectorAll(".filter-btn")
+
+    .forEach(btn => btn.classList.remove("active"));
+
+
+  button.classList.add("active");
+
+
+  renderReminders();
+
+}
+
+
+/* مرتب‌سازی */
+
+function sortReminders(){
+
+  reminders.sort(function(a,b){
+
+    return new Date(a.time) -
+           new Date(b.time);
+
+  });
+
+
+  saveData();
+
+  renderReminders();
+
+
+  alert("⏰ یادآوری‌ها بر اساس زمان مرتب شدند!");
+
+}
+
+
+/* آمار */
+
+function updateStats(){
+
+  document.getElementById("totalCount").textContent =
+    reminders.length;
+
+
+  document.getElementById("pendingCount").textContent =
+
+    reminders.filter(r => !r.done).length;
+
+
+  document.getElementById("doneCount").textContent =
+
+    reminders.filter(r => r.done).length;
+
+}
+
+
+/* دارک مود */
+
+function toggleDarkMode(){
+
+  document.body.classList.toggle("dark");
+
+
+  const isDark =
+    document.body.classList.contains("dark");
+
+
+  localStorage.setItem(
+
+    "yadamNareDarkMode",
+
+    isDark
+
+  );
+
+}
+
+
+if(
+
+  localStorage.getItem("yadamNareDarkMode") === "true"
+
+){
+
+  document.body.classList.add("dark");
+
+}
+
+
+/* امن کردن متن */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+
+  div.textContent = text;
+
+
+  return div.innerHTML;
+
+}
+
+
+/* شروع */
+
+renderReminders();
+
+
+</script>
+
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", () => {
+
+    navigator.serviceWorker.register("sw.js");
+
+  });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
